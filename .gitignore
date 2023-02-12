@@ -1,3 +1,4 @@
-./electronicsInventory/__pycache__
-./mainpage/__pycache__
-./polls
+electronicsInventoryApp/__pycache__
+mainpage/__pycache__
+polls
+mainpage/migrations/__pycache__

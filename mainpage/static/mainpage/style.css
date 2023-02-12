@@ -1,0 +1,178 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.topbar{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 15vh;
+    background-color: #fff;
+    border-bottom: #000 1px solid;
+    overflow: hidden;
+}
+.logo{
+    margin: 0 0 0 2vw;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width:auto;
+  height:auto;
+
+}
+.logodiv{
+  height:100%;
+  width:30vw;
+  float:left;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+  }
+  
+  .navbar {
+    overflow: hidden;
+    background-color: white; 
+    width:60vw;
+    margin-left: 30vw;
+    height: 100%;
+  }
+  
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .subnav {
+    float: left;
+    overflow: hidden;
+  }
+  
+  .subnav .subnavbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: black;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  
+  .navbar a:hover, .subnav:hover .subnavbtn {
+    background-color: #3777bb;
+  }
+  
+  .subnav-content {
+    display: none;
+    position: absolute;
+    left: auto;
+    background-color: #3777bb;
+    z-index: 1;
+  }
+  
+  .subnav-content a {
+    float: left;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .subnav-content a:hover {
+    background-color: #eee;
+    color: black;
+  }
+  
+  .subnav:hover .subnav-content {
+    display: block;
+  }
+
+
+.button-56 {
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: Inter,sans-serif;
+    font-size: 16px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position:absolute;
+    right:48px;
+    bottom:48px;
+}
+
+.button-56 a{
+    color: #111;
+    text-decoration: none;
+}
+
+.button-56:hover {
+    background-color: #3777bb;
+    color: #fff;
+}
+
+
+
+.viewport{
+    width: 100%;
+    height:85vh;
+    position: absolute;
+    top: 15vh;
+    background-color:black;
+}
+
+.sidenav{
+    width: 20%;
+    height:100%;
+    background-color:#fff;
+    float:left;
+    border-right: #000 1px solid;
+}
+
+.content{
+    width: 80%;
+    height:100%;
+    background-color:#fff;
+    float:right;
+    overflow-x:auto;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.search{
+  
+}
+

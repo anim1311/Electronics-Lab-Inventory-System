@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Lab inventory</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mainpage/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+</head>
+<body>
+    <div class="topbar">
+        <div class = "logodiv"><a href="http://hsrw.eu"><img src="https://www.hochschule-rhein-waal.de/sites/default/themes/at_hrw/logo.png" alt="" class="logo"></a></div>
+        <div class="navbar">
+       
+            {% for keys, values in content.1.items %}
+                <div class="subnav">
+                    <button class="subnavbtn">{{ keys}} <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+                            {% for sub_item in values %}
+                                <a href="#{{ item }}">{{ sub_item }}</a>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+            {% endfor %}
+        
+        </div>
+        <button class="button-56" role="button"><a href="/admin">ADMIN</a> </button>
+    </div>
+    <div class="viewport">
+        <div class="sidenav">
+            <form action="{% url 'mainpage:search' %}" method="get">
+                <input name="q" type="text" placeholder="Search...">
+            </form>
+            
+        </div>
+        <div class="content">
+            <table>
+                <tr>
+                  <th>Part</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Box Number</th>
+                  <th>Remainder</th>
+                  <th>Available</th>
+                  <th>Date Added</th>
+                  <th>Price</th>
+                  <th>Datasheet</th>
+                  <th>Where to buy</th>
+                  
+                </tr>
+                {% for item in content.0 %}
+                    <tr>
+                        <td>{{ item.part }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.box_num }}</td>
+                        <td>{{ item.remainder }}</td>
+                        <td>{{ item.available }}</td>
+                        <td>{{ item.date_added }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.datasheet }}</td>
+                        <td>TBD</td>
+                    </tr>
+                {% endfor %}
+              </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
