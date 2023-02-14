@@ -12,43 +12,55 @@
 </head>
 <body>
     <div class="topbar">
-        <div class = "logodiv"><a href="http://hsrw.eu"><img src="https://www.hochschule-rhein-waal.de/sites/default/themes/at_hrw/logo.png" alt="" class="logo"></a></div>
+        <div class = "logodiv"><a href="/"><img src="https://www.hochschule-rhein-waal.de/sites/default/themes/at_hrw/logo.png" alt="" class="logo"></a></div>
         <div class="navbar">
-       
-            {% for keys, values in content.1.items %}
-                <div class="subnav">
-                    <button class="subnavbtn">{{ keys}} <i class="fa fa-caret-down"></i></button>
-                        <div class="subnav-content">
-                            {% for sub_item in values %}
-                                <a href="#{{ item }}">{{ sub_item }}</a>
-                            {% endfor %}
-                            
-                        </div>
-                    </div>
-            {% endfor %}
-        
+            <a href="/">Home</a>
+            
+            <form action="{% url 'mainpage:search' %}" method="get">
+                <input class="search"  name="q" type="text" placeholder="Search...">
+            </form>
+
         </div>
-        <button class="button-56" role="button"><a href="/admin">ADMIN</a> </button>
+        
     </div>
     <div class="viewport">
         <div class="sidenav">
-            <form class = "search"action="{% url 'mainpage:search' %}" method="get">
-                <input name="q" type="text" placeholder="Search...">
-            </form>
-            
+            <div class="dropdown">
+                
+                <button onclick="roomFilter()" class="dropbtn">Filter By Room</button>
+                <div id="roomFilter" class="dropdown-content">
+                    <form action="{% url 'mainpage:search' %}" method="get">
+                        <input name="q" type="text" placeholder="Search..."id="myInput">
+                    </form>
+                    {% for category in content.2 %}
+                    <a href="/search/?q={{ category}}">{{ category}}</a>
+                    {% endfor %}
+                    
+                </div>
+                <button onclick="catFilter()" class="dropbtn">Filter By Category</button>
+                <div id="catFilter" class="dropdown-content">
+                    <form action="{% url 'mainpage:search' %}" method="get">
+                        <input name="q" type="text" placeholder="Search..."id="myInput">
+                    </form>
+                    {% for category in content.3 %}
+    
+                        <a href="/search/?q={{category}}">{{category}}</a>
+    
+                    {% endfor %}
+                    
+                </div>
+            </div>
         </div>
         <div class="content">
             <table>
                 <tr>
                   <th>Part</th>
                   <th>Category</th>
-                  <th>Price</th>
-                  <th>Box Number</th>
-                  <th>Remainder</th>
-                  <th>Available</th>
-                  <th>Date Added</th>
-                  <th>Price</th>
                   <th>Datasheet</th>
+                  <!--<th>Price</th>-->
+                  <th>Box Number</th>
+                  <th>Room Number</th>
+                  
                   <th>Where to buy</th>
                   
                 </tr>
@@ -56,19 +68,74 @@
                     <tr>
                         <td>{{ item.part }}</td>
                         <td>{{ item.category }}</td>
-                        <td>{{ item.price }}</td>
+                        <!--<td>{{ item.price }}</td>-->
+                        {% if item.datasheet.name %}
+                            <td><a href="/datasheets/{{item.datasheet.name}}"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></a></td>
+                        {% else %}
+                            <td><i class="fa fa-file" aria-hidden="true" style="color:gray"></i></td>
+                        {% endif %}
                         <td>{{ item.box_num }}</td>
-                        <td>{{ item.remainder }}</td>
-                        <td>{{ item.available }}</td>
-                        <td>{{ item.date_added }}</td>
-                        <td>{{ item.price }}</td>
-                        <td>{{ item.datasheet }}</td>
-                        <td>TBD</td>
+                        <td>{{ item.room_num }}</td>
+                        <td>
+                            {% if item.link_mouser %}
+                                <a href="{{item.link_mouser}}"><img src="https://www.mouser.de/favicon.ico" alt="link_mouser"></a>
+                            {% endif %}
+
+                            {% if item.link_reichelt %}
+                                <a href="{{item.link_reichelt}}"><img src="https://www.reichelt.de/favicon.ico" alt="link_reichelt"></a>
+                            {% endif %}
+
+                            {% if item.link_conrad %}
+                                <a href="{{item.link_conrad}}"><img src="https://www.conrad.de/favicon.ico" alt="link_conrad"></a>
+                            {% endif %}
+
+                            {% if item.link_voelkner %}
+                                <a href="{{item.link_voelkner}}"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:red"></i></a>
+                            {% endif %}
+
+                            {% if item.link_farnell %}
+                                <a href="{{item.link_farnell}}"><img src="https://de.farnell.com/favicon.ico" alt="link_farnell"></a>
+                            {% endif %}
+
+                            {% if item.link_rs %}
+                                <a href="{{item.link_rs}}"><img src="https://de.rs-online.com/favicon.ico" alt="link_rs"></a>
+                            {% endif %}
+
+                            {% if item.link_digikey %}
+                                <a href="{{item.link_digikey}}"><img src="https://www.digikey.de/favicon.ico" alt="link_digikey"></a>
+                            {% endif %}
+
+                            {% if item.link_other %}
+                                <a href="{{item.link_other}}"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:red"></i></a>
+                            {% endif %}
+                            
+                            {% if  not item.link_other and  not item.link_digikey and not item.link_rs and not item.link_farnell and not item.link_voelkner and not item.link_conrad  and not item.link_reichelt and not item.link_mouser %}
+                                {% if not item.reminder %}
+                                <i class="fa fa-ban" aria-hidden="true"style="color:gray"></i>   
+                                {% else %}
+                                <i class="fa fa-shopping-cart" aria-hidden="true" style="color:gray"></i>
+                                {% endif %}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
               </table>
         </div>
     </div>
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function roomFilter() {
+          document.getElementById("roomFilter").classList.toggle("show");
+          document.getElementById("catFilter").classList.remove("show");
+        }
+        function catFilter() {
+          document.getElementById("catFilter").classList.toggle("show")[1];
+          document.getElementById("roomFilter").classList.remove("show");
+        }
+        
+     </script>
 </body>
 </html>
 

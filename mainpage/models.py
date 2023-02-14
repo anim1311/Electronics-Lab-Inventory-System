@@ -24,12 +24,12 @@ class TOP_BAR_LINKS(models.Model):
     
     
 class Storage(models.Model):
-    room = models.CharField(primary_key=True, max_length=32, db_collation='utf8mb3_general_ci')
+    room = models.CharField(primary_key=True, max_length=32, db_collation='utf8mb3_general_ci',blank = False)
     longname = models.CharField(max_length=32, db_collation='utf8mb3_general_ci')
     shortname = models.CharField(max_length=32, db_collation='utf8mb3_general_ci')
-    responsible_person = models.CharField(max_length=32)
-    title_en = models.CharField(max_length=32, db_collation='utf8mb3_general_ci')
-    title_de = models.CharField(max_length=32, db_collation='utf8mb3_general_ci')
+    responsible_person = models.CharField(max_length=32,blank = False)
+    title_en = models.CharField(max_length=32, db_collation='utf8mb3_general_ci',blank = False)
+    title_de = models.CharField(max_length=32, db_collation='utf8mb3_general_ci',blank = False)
 
     class Meta:
         managed = False
@@ -40,7 +40,7 @@ class Storage(models.Model):
 
 
 class Categories(models.Model):
-    name = models.CharField(primary_key=True, max_length=32, db_collation='utf8mb3_general_ci')
+    name = models.CharField(primary_key=True, max_length=32, db_collation='utf8mb3_general_ci',blank = False)
 
     class Meta:
         managed = False
@@ -51,10 +51,10 @@ class Categories(models.Model):
 
 class Electronicparts(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category')
-    part = models.CharField(max_length=256, db_collation='utf8mb3_general_ci')
-    datasheet = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
-    room_num = models.ForeignKey('Storage', models.DO_NOTHING, db_column='room_num')
+    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category',blank = False)
+    part = models.CharField(max_length=256, db_collation='utf8mb3_general_ci',blank = False)
+    datasheet = models.FileField()
+    room_num = models.ForeignKey('Storage', models.DO_NOTHING, db_column='room_num',blank = False)
     box_num = models.IntegerField(blank=True, null=True)
     reichelt_name = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
     reichelt_num = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
@@ -66,11 +66,13 @@ class Electronicparts(models.Model):
     link_mouser = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
     link_digikey = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
     link_other = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
-    remainder = models.IntegerField()
-    available = models.IntegerField()
+    remainder = models.IntegerField(blank = True, null = True)
+    available = models.IntegerField(blank = True, null = True)
     date_added = models.DateTimeField()
     id = models.BigAutoField(primary_key=True)
     compartment = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
+
+    search_fields = ['part', 'compartment','category']
 
     class Meta:
         managed = False
@@ -78,4 +80,10 @@ class Electronicparts(models.Model):
     
     def __str__(self):
         return self.part
-    
+
+class Datasheet(models.Model):
+
+    datasheet = models.FileField()
+
+    def __str__(self):
+        return self.datasheet.name
