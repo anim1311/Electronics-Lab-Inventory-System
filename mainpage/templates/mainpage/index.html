@@ -16,10 +16,14 @@
         <div class="navbar">
             
             <a href="/">Home</a>
-            
+            <a href="">Product Enquiry</a>
+            <a href="">About the Lab</a>
+            <a href="">Wiki page</a>
+            <a href="/admin">Admin</a>
+
             <form action="{% url 'mainpage:search' %}" method="get">
                 
-                <input class="search"  name="q" type="text" placeholder="Search...">
+                <input  name="q" type="text" placeholder="Search..." id="myInput" autocomplete="off">
             </form>
         
         </div>
@@ -53,6 +57,9 @@
                     {% endfor %}
                     
                 </div>
+
+                
+
             </div>
                          
             

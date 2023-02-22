@@ -2,7 +2,7 @@ from sre_parse import CATEGORIES
 from django.views import generic
 from django.db.models import Q
 from django.shortcuts import render
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse, HttpRequest
 import os
 
 from .models import MAIN_LINKS, TOP_BAR_LINKS, Electronicparts, Storage, Categories
@@ -33,6 +33,10 @@ class IndexView(generic.ListView):
         #object = Electronicparts.objects.filter(category = Categories.objects.first())
 
         #content[0] = object.order_by('part');
+
+        if self.request.method == "POST":
+            display_type = self.request.POST.get("display_type")
+            print(display_type)  
         content[0] = Electronicparts.objects.all().order_by('part')
         return content
 

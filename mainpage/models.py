@@ -87,3 +87,9 @@ class Datasheet(models.Model):
 
     def __str__(self):
         return self.datasheet.name
+
+class Mail (models.Model):
+    mail = models.EmailField()
+    send_to_this = models.BooleanField(default=False)
+    def __str__(self):
+        return self.mail
