@@ -37,7 +37,7 @@ class IndexView(generic.ListView):
         if self.request.method == "POST":
             display_type = self.request.POST.get("display_type")
             print(display_type)  
-        content[0] = Electronicparts.objects.all().order_by('part')
+        content[0] = Electronicparts.objects.all().order_by('category')
         return content
 
 
@@ -56,7 +56,7 @@ class SearchResultsView(generic.ListView):
         object_list = Electronicparts.objects.filter(
             Q(part__icontains=query) | Q(category__name__icontains=query) | Q(room_num__room__icontains=query) 
         )
-        content[0] = object_list.order_by('part')
+        content[0] = object_list.order_by('category')
         return content 
 
 

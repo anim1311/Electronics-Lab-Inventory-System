@@ -17,8 +17,8 @@
             
             <a href="/">Home</a>
             <a href="">Product Enquiry</a>
-            <a href="">About the Lab</a>
-            <a href="">Wiki page</a>
+            <a href="https://dokuwiki.hsrw.org/doku.php?id=ee:labs">About the Labs</a>
+            <a href="https://dokuwiki.hsrw.org/doku.php?id=start">Wiki page</a>
             <a href="/admin">Admin</a>
 
             <form action="{% url 'mainpage:search' %}" method="get">
@@ -34,17 +34,6 @@
            
                 
             <div class="dropdown">
-                
-                <button onclick="roomFilter()" class="dropbtn">Filter By Room</button>
-                <div id="roomFilter" class="dropdown-content">
-                    <form action="{% url 'mainpage:search' %}" method="get">
-                        <input name="q" type="text" placeholder="Search..."id="myInput">
-                    </form>
-                    {% for category in content.2 %}
-                        <a href="/search/?q={{category}}">{{category}}</a>
-                    {% endfor %}
-                    
-                </div>
                 <button onclick="catFilter()" class="dropbtn">Filter By Category</button>
                 <div id="catFilter" class="dropdown-content">
                     <form action="{% url 'mainpage:search' %}" method="get">
@@ -57,6 +46,17 @@
                     {% endfor %}
                     
                 </div>
+                <button onclick="roomFilter()" class="dropbtn">Filter By Room</button>
+                <div id="roomFilter" class="dropdown-content">
+                    <form action="{% url 'mainpage:search' %}" method="get">
+                        <input name="q" type="text" placeholder="Search..."id="myInput">
+                    </form>
+                    {% for category in content.2 %}
+                        <a href="/search/?q={{category}}">{{category}}</a>
+                    {% endfor %}
+                    
+                </div>
+              
 
                 
 
@@ -83,7 +83,7 @@
                         <td>{{ item.category }}</td>
                         <!--<td>{{ item.price }}</td>-->
                         {% if item.datasheet.name %}
-                            <td><a href="/datasheets/{{item.datasheet.name}}"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></a></td>
+                            <td><a target="_blank" rel="noopener" href="/datasheets/{{item.datasheet.name}}"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></a></td>
                         {% else %}
                             <td><i class="fa fa-file" aria-hidden="true" style="color:gray"></i></td>
                         {% endif %}
@@ -91,40 +91,40 @@
                         <td>{{ item.room_num }}</td>
                         <td>
                             {% if item.link_mouser %}
-                                <a href="{{item.link_mouser}}"><img src="https://www.mouser.de/favicon.ico" alt="link_mouser"></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_mouser}}"><img src="https://www.mouser.de/favicon.ico" alt="link_mouser"></a>
                             {% endif %}
 
                             {% if item.link_reichelt %}
-                                <a href="{{item.link_reichelt}}"><img src="https://www.reichelt.de/favicon.ico" alt="link_reichelt"></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_reichelt}}"><img src="https://www.reichelt.de/favicon.ico" alt="link_reichelt"></a>
                             {% endif %}
 
                             {% if item.link_conrad %}
-                                <a href="{{item.link_conrad}}"><img src="https://www.conrad.de/favicon.ico" alt="link_conrad"></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_conrad}}"><img src="https://www.conrad.de/favicon.ico" alt="link_conrad"></a>
                             {% endif %}
 
                             {% if item.link_voelkner %}
-                                <a href="{{item.link_voelkner}}"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:red"></i></a>
+                                <a target="_blank" rel="noopener"href="{{item.link_voelkner}}"><img height="16" width="16" src='http://www.google.com/s2/favicons?domain={{item.link_voelkner}}' /></a>
                             {% endif %}
 
                             {% if item.link_farnell %}
-                                <a href="{{item.link_farnell}}"><img src="https://de.farnell.com/favicon.ico" alt="link_farnell"></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_farnell}}"><img src="https://de.farnell.com/favicon.ico" alt="link_farnell"></a>
                             {% endif %}
 
                             {% if item.link_rs %}
-                                <a href="{{item.link_rs}}"><img src="https://de.rs-online.com/favicon.ico" alt="link_rs"></a>
+                                <a  target="_blank" rel="noopener"href="{{item.link_rs}}"><img src="https://de.rs-online.com/favicon.ico" alt="link_rs"></a>
                             {% endif %}
 
                             {% if item.link_digikey %}
-                                <a href="{{item.link_digikey}}"><img src="https://www.digikey.de/favicon.ico" alt="link_digikey"></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_digikey}}"><img src="https://www.digikey.de/favicon.ico" alt="link_digikey"></a>
                             {% endif %}
 
                             {% if item.link_other %}
-                                <a href="{{item.link_other}}"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:red"></i></a>
+                                <a target="_blank" rel="noopener" href="{{item.link_other}}"><img height="16" width="16" src='http://www.google.com/s2/favicons?domain={{item.link_other}}' /></a>
                             {% endif %}
                             
                             {% if  not item.link_other and  not item.link_digikey and not item.link_rs and not item.link_farnell and not item.link_voelkner and not item.link_conrad  and not item.link_reichelt and not item.link_mouser %}
                                 {% if not item.reminder %}
-                                <i class="fa fa-ban" aria-hidden="true"style="color:gray"></i>   
+                                <i class="fa fa-ban" aria-hidden="true" style="color:gray"></i>   
                                 {% else %}
                                 <i class="fa fa-shopping-cart" aria-hidden="true" style="color:gray"></i>
                                 {% endif %}

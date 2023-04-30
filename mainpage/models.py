@@ -50,7 +50,7 @@ class Categories(models.Model):
         return self.name
 
 class Electronicparts(models.Model):
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0)
     category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category',blank = False)
     part = models.CharField(max_length=256, db_collation='utf8mb3_general_ci',blank = False)
     datasheet = models.FileField()
@@ -66,8 +66,8 @@ class Electronicparts(models.Model):
     link_mouser = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
     link_digikey = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
     link_other = models.CharField(max_length=128, db_collation='utf8mb3_general_ci', blank=True, null=True)
-    remainder = models.IntegerField(blank = True, null = True)
-    available = models.IntegerField(blank = True, null = True)
+    remainder = models.IntegerField(blank = True, null = True, default=0)
+    available = models.IntegerField(blank = True, null = True, default= 0)
     date_added = models.DateTimeField()
     id = models.BigAutoField(primary_key=True)
     compartment = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
