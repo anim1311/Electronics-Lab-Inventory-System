@@ -26,14 +26,13 @@ SECRET_KEY = 'django-insecure-fj4c*kk&o+aqxdzu(s4sg=acs1dppqf*l5rj$%23@m##d9%c=&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.0.103']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'mainpage.apps.MainpageConfig',
-    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'data',  
         'USER': 'root',  
-        'PASSWORD': 'ani1311',  
+        'PASSWORD': 'test2023',  
         'HOST': 'localhost',  
         'PORT': '3306',  
         'OPTIONS': {  
@@ -130,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

@@ -22,6 +22,5 @@ admin.site.index_title  =  "Welcome to Electronics Lab Admin Portal"
 
 urlpatterns = [
     path('', include('mainpage.urls')),
-    path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
