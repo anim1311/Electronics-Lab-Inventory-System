@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{% static 'mainpage/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    
 </head>
 <body>
     <div class="topbar">
@@ -16,15 +21,21 @@
         <div class="navbar">
             
             <a href="/">Home</a>
-            <a href="">Product Enquiry</a>
             <a href="https://dokuwiki.hsrw.org/doku.php?id=ee:labs">About the Labs</a>
             <a href="https://dokuwiki.hsrw.org/doku.php?id=start">Wiki page</a>
             <a href="/admin">Admin</a>
+            
 
             <form action="{% url 'mainpage:search' %}" method="get">
                 
                 <input  name="q" type="text" placeholder="Search..." id="myInput" autocomplete="off">
             </form>
+
+            <a href="/shoppingCart">
+
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span class="total-count">{{content.4}}</span>
+            </a>
         
         </div>
        
@@ -81,7 +92,7 @@
                 {% for item in content.0 %}
                     <tr>
                         <td>
-                            <button data-product = "{{item.id}}" data-action="add" type="submit" class="update-cart">&#128722</button>
+                            <button data-product = "{{item.id}}" data-action="add" type="submit" class="update-cart">&#128722;</button>
                         </td>
 
                         <td>{{ item.part }}</td>

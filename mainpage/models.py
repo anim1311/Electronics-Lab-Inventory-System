@@ -71,7 +71,6 @@ class Electronicparts(models.Model):
     date_added = models.DateTimeField()
     id = models.BigAutoField(primary_key=True)
     compartment = models.CharField(max_length=32, db_collation='utf8mb3_general_ci', blank=True, null=True)
-
     search_fields = ['part', 'compartment','category']
 
     class Meta:

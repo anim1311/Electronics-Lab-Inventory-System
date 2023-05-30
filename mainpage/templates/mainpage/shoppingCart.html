@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Lab inventory</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mainpage/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    
+</head>
+<body>
+    <div class="topbar">
+        <div class = "logodiv"><a href="/"><img src="https://www.hochschule-rhein-waal.de/sites/default/themes/at_hrw/logo.png" alt="" class="logo"></a></div>
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="https://dokuwiki.hsrw.org/doku.php?id=ee:labs">About the Labs</a>
+            <a href="https://dokuwiki.hsrw.org/doku.php?id=start">Wiki page</a>
+            <a href="/admin">Admin</a>
+            
+            <form action="{% url 'mainpage:search' %}" method="get">
+                <input  name="q" type="text" placeholder="Search..." id="myInput" autocomplete="off">
+            </form>
+            <a href="/shoppingCart">
+
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span class="total-count">{{content.4}}</span>
+            </a>
+
+        </div>
+        
+    </div>
+    <div class="viewport">
+        <div class="sidenav">
+            <div class="dropdown">
+                <button onclick="catFilter()" class="dropbtn">Filter By Category</button>
+                <div id="catFilter" class="dropdown-content">
+                    <form action="{% url 'mainpage:search' %}" method="get">
+                        <input name="q" type="text" placeholder="Search..."id="myInput">
+                    </form>
+                    {% for category in content.3 %}
+    
+                        <a href="/search/?q={{category}}">{{category}}</a>
+    
+                    {% endfor %}
+                    
+                </div>
+                <button onclick="roomFilter()" class="dropbtn">Filter By Room</button>
+                <div id="roomFilter" class="dropdown-content">
+                    <form action="{% url 'mainpage:search' %}" method="get">
+                        <input name="q" type="text" placeholder="Search..."id="myInput">
+                    </form>
+                    {% for category in content.2 %}
+                    <a href="/search/?q={{ category}}">{{ category}}</a>
+                    {% endfor %}
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div class="content">
+            <h1 class = "p-5 text-center">Shopping Cart</h1>
+            <a href="/download_pdf" class="btn btn-primary">Download As PDF</a>
+            <table>
+                
+                {% if content.0 %}
+                    <tr>
+                        <th>Remove from cart</th>
+                        <th>Part</th>
+                        <th>Category</th>
+                        <th>Datasheet</th>
+                        <!--<th>Price</th>-->
+                        <th>Box Number</th>
+                        <th>Room Number</th>
+                        
+                        <th>Where to buy</th>
+                        
+                    </tr>
+                    {% for item in content.0 %}
+                        
+                        <tr>
+                            <td>
+                                <button data-product = "{{item.id}}" data-action="remove" type="submit" class="removeBtn">&#10060;</button>
+                            </td>
+                            <td>{{ item.part }}</td>
+                            <td>{{ item.category }}</td>
+                            <!--<td>{{ item.price }}</td>-->
+                            {% if item.datasheet.name %}
+                                <td><a target="_blank" rel="noopener" href="/datasheets/{{item.datasheet.name}}"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></a></td>
+                            {% else %}
+                                <td><i class="fa fa-file" aria-hidden="true" style="color:gray"></i></td>
+                            {% endif %}
+                            <td>{{ item.box_num }}</td>
+                            <td>{{ item.room_num }}</td>
+                            <td>
+                                {% if item.link_mouser %}
+                                    <a target="_blank" rel="noopener" href="{{item.link_mouser}}"><img src="https://www.mouser.de/favicon.ico" alt="link_mouser"></a>
+                                {% endif %}
+
+                                {% if item.link_reichelt %}
+                                    <a target="_blank" rel="noopener" href="{{item.link_reichelt}}"><img src="https://www.reichelt.de/favicon.ico" alt="link_reichelt"></a>
+                                {% endif %}
+
+                                {% if item.link_conrad %}
+                                    <a target="_blank" rel="noopener"href="{{item.link_conrad}}"><img src="https://www.conrad.de/favicon.ico" alt="link_conrad"></a>
+                                {% endif %}
+
+                                {% if item.link_voelkner %}
+                                <a target="_blank" rel="noopener" href="{{item.link_voelkner}}"><img height="16" width="16" src='http://www.google.com/s2/favicons?domain={{item.link_voelkner}}' /></a>
+                                {% endif %}
+
+                                {% if item.link_farnell %}
+                                    <a target="_blank" rel="noopener" href="{{item.link_farnell}}"><img src="https://de.farnell.com/favicon.ico" alt="link_farnell"></a>
+                                {% endif %}
+
+                                {% if item.link_rs %}
+                                    <a target="_blank" rel="noopener" href="{{item.link_rs}}"><img src="https://de.rs-online.com/favicon.ico" alt="link_rs"></a>
+                                {% endif %}
+
+                                {% if item.link_digikey %}
+                                    <a target="_blank" rel="noopener" href="{{item.link_digikey}}"><img src="https://www.digikey.de/favicon.ico" alt="link_digikey"></a>
+                                {% endif %}
+
+                                {% if item.link_other %}
+                                <a target="_blank" rel="noopener" href="{{item.link_other}}"><img height="16" width="16" src='http://www.google.com/s2/favicons?domain={{item.link_other}}' /></a>
+                                {% endif %}
+                                
+                                {% if  not item.link_other and  not item.link_digikey and not item.link_rs and not item.link_farnell and not item.link_voelkner and not item.link_conrad  and not item.link_reichelt and not item.link_mouser %}
+                                    {% if not item.reminder %}
+                                    <i class="fa fa-ban" aria-hidden="true"style="color:gray"></i>   
+                                    {% else %}
+                                    <i class="fa fa-shopping-cart" aria-hidden="true" style="color:gray"></i>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                {% else %}
+                    
+                <div class="d-flex align-items-center justify-content-center vh-100">
+                    <div class="text-center row">
+                        <div class=" col-md-6">
+                            <img src="{% static 'mainpage/images/basket.gif' %}" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class=" col-md-6 mt-5">
+                            <p class="fs-3"> <span class="text-danger">Opps!</span> Empty Shopping cart.</p>
+                            <p class="lead">
+                              Please add to your shopping cart.
+                            </p>
+                            <a href="/" class="btn btn-primary">Go Home</a>
+                        </div>
+        
+                    </div>
+                </div>
+                {% endif %}
+              </table>
+        </div>
+    </div>
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function roomFilter() {
+          document.getElementById("roomFilter").classList.toggle("show");
+          document.getElementById("catFilter").classList.remove("show");
+        }
+        function catFilter() {
+          document.getElementById("catFilter").classList.toggle("show")[1];
+          document.getElementById("roomFilter").classList.remove("show");
+        }
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+     </script>
+
+    <script src="{% static 'mainpage/remove.js' %}"></script>
+</body>
+</html>
+
+
