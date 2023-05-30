@@ -11,3 +11,4 @@ urlpatterns = [
     path("shoppingCart/", views.ShoppingBasketView.as_view(), name="shoppingCart"),
     path("download_pdf", views.download_pdf, name="download_pdf"),
 ]
+

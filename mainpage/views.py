@@ -1,10 +1,11 @@
 from django.views import generic
 from django.db.models import Q
 
-from django.http import FileResponse, JsonResponse
+from django.http import FileResponse, JsonResponse,HttpResponseBadRequest
 import os
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 from collections import defaultdict
 from .models import MAIN_LINKS, TOP_BAR_LINKS, Electronicparts, Storage, Categories
@@ -174,3 +175,21 @@ def download_pdf(request):
 
     
 
+from django.shortcuts import render
+
+
+def error_404(request, exception):
+    return render(request, 'mainpage/404.html')
+
+
+
+def error_500(request, *args, **argv):
+    return render(request, 'mainpage/500.html', status=500)
+
+        
+def error_403(request, exception):
+
+        return render(request,'mainpage/403.html')
+
+def error_400(request,  exception):
+        return HttpResponseBadRequest('Bad Request!')

@@ -24,3 +24,12 @@ urlpatterns = [
     path('', include('mainpage.urls')),
     path('admin/', admin.site.urls),
 ]
+
+from django.conf.urls import handler400, handler403, handler404, handler500
+
+
+# Customizing the built error pages
+handler404 = 'mainpage.views.error_404'
+handler500 = 'mainpage.views.error_500'
+handler403 = 'mainpage.views.error_403'
+handler400 = 'mainpage.views.error_400'
