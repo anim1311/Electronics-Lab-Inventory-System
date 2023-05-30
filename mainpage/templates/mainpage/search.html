@@ -58,6 +58,7 @@
         <div class="content">
             <table>
                 <tr>
+                  <th>Add to cart</th>
                   <th>Part</th>
                   <th>Category</th>
                   <th>Datasheet</th>
@@ -70,6 +71,9 @@
                 </tr>
                 {% for item in content.0 %}
                     <tr>
+                        <td>
+                            <button data-product = "{{item.id}}" data-action="add" type="submit" class="update-cart">&#128722</button>
+                        </td>
                         <td>{{ item.part }}</td>
                         <td>{{ item.category }}</td>
                         <!--<td>{{ item.price }}</td>-->
@@ -138,8 +142,25 @@
           document.getElementById("catFilter").classList.toggle("show")[1];
           document.getElementById("roomFilter").classList.remove("show");
         }
-        
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
      </script>
+
+    <script src="{% static 'mainpage/cart.js' %}"></script>
 </body>
 </html>
 
